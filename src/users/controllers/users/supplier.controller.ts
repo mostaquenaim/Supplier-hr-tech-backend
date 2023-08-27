@@ -2,10 +2,13 @@ import {
   Body,
   Controller,
   Delete,
+  FileTypeValidator,
   Get,
   HttpException,
   HttpStatus,
+  MaxFileSizeValidator,
   Param,
+  ParseFilePipe,
   ParseIntPipe,
   Post,
   Put,
@@ -46,6 +49,19 @@ export class SupplierController {
   ) {
     return this.userService.getUserVehicle(email);
   }
+
+  
+  //get returned Product
+  @Get(':email/returnedProducts')
+  @UsePipes(ValidationPipe)
+  getAllReturnedProducts(
+    @Param('email') email,
+    @Session() session,
+  ) {
+    return this.userService.getAllReturnedProducts(email);
+  }
+
+
 
   //get schedule 
   @Get('schedule')
@@ -268,6 +284,29 @@ export class SupplierController {
     console.log("filename")
     console.log(file.filename)
     return this.userService.uploadFile(email, file.filename);
+  }
+
+  @Post(':id/returnProduct')
+  @UseInterceptors(FileInterceptor('filename',
+  {
+    storage: diskStorage({
+      destination: './uploads',
+      filename: function (req, file, cb) {
+        cb(null, Date.now() + file.originalname)
+      }
+    })
+  }))
+  returnProduct(
+    @Param('id') id ,
+    @Body() mydto, 
+    @UploadedFile() file: Express.Multer.File) { 
+
+    console.log("11111",file.filename)
+
+    mydto.filename = file.filename;
+
+    return this.userService.returnProduct(id, mydto);
+    // console.log(file)
   }
 
   //create schedule

@@ -19,11 +19,12 @@ import { Company } from 'src/typeorm/entities/company';
 import { ProductCategory } from 'src/typeorm/entities/productCat';
 import { DeliverymanFeedback } from 'src/typeorm/entities/deliverymanFeedback';
 import { Support } from 'src/typeorm/entities/support';
+import { ReturnProduct } from 'src/typeorm/entities/returnProduct';
 // import { DeliverymanSupport, Support } from 'src/typeorm/entities/support';
 
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User, Profile,DeliverymanFeedback,Support, Post, Vehicle,Company,ProductCategory, Schedule, Order, Mngorder, CustomerReview, Customer, Product, Supplier])],
+  imports: [TypeOrmModule.forFeature([User, Profile,DeliverymanFeedback,Support, ReturnProduct, Post, Vehicle,Company,ProductCategory, Schedule, Order, Mngorder, CustomerReview, Customer, Product, Supplier])],
   controllers: [SupplierController],
   providers: [SupplierService],
 })

@@ -12,6 +12,7 @@ import { Schedule } from './Schedule';
 import { Order } from './Order';
 import { Mngorder } from './ManagementOrder';
 import { Support } from './support';
+import { ReturnProduct } from './returnProduct';
 
 @Entity({ name: 'supplier' })
 export class Supplier {
@@ -45,6 +46,9 @@ export class Supplier {
 
   @OneToMany(() => Post, (post) => post.supplier)
   posts: Post[];
+
+  @OneToMany(() => ReturnProduct, (returnProduct) => returnProduct.supplier)
+  returnProducts: ReturnProduct[];
 
   @OneToMany(() => Vehicle, (vehicle) => vehicle.supplier)
   vehicles: Vehicle[];

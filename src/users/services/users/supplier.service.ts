@@ -30,6 +30,7 @@ import { DeliverymanFeedback } from 'src/typeorm/entities/deliverymanFeedback';
 // import { DeliverymanSupport } from 'src/typeorm/entities/support';
 import { Support } from 'src/typeorm/entities/support';
 import { Supplier } from 'src/typeorm/entities/supplier';
+import { ReturnProduct } from 'src/typeorm/entities/returnProduct';
 
 
 
@@ -60,6 +61,7 @@ export class SupplierService {
     @InjectRepository(ProductCategory) private productCategoryRepository: Repository<ProductCategory>,
     @InjectRepository(DeliverymanFeedback) private feedbackRepository: Repository<DeliverymanFeedback>,
     @InjectRepository(Support) private supportRepository: Repository<Support>,
+    @InjectRepository(ReturnProduct) private returnProductRepository: Repository<ReturnProduct>,
 
   ) { }
 
@@ -214,6 +216,22 @@ export class SupplierService {
     });
 
   }
+
+  
+  // get returned products 
+  async getAllReturnedProducts(email) {
+
+    const users = await this.userRepository.findOneBy({ email: email });
+
+    return this.returnProductRepository.find({
+      where: {
+        supplier: users,
+      },
+    });
+
+  }
+
+
 
   // get schedule 
   async getUserSchedule(email) {
@@ -435,6 +453,25 @@ export class SupplierService {
 
     return null; // Return null if no user found with the provided email
   }
+
+  
+  // return product 
+  async returnProduct(id, myDto) {
+    const user = await this.userRepository.findOneBy({ id });
+
+    const userAccount = new ReturnProduct()
+
+    userAccount.description = myDto.description;
+    userAccount.supplier = user
+    userAccount.filename = myDto.filename
+    userAccount.name = myDto.name
+
+    return this.returnProductRepository.save(userAccount);
+
+    return null; // Return null if no user found with the provided email
+  }
+
+
 
   // find user by email 
 

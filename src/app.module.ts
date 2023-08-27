@@ -22,6 +22,7 @@ import { Company } from './typeorm/entities/company';
 import { ProductCategory } from './typeorm/entities/productCat';
 import { DeliverymanFeedback } from './typeorm/entities/deliverymanFeedback';
 import { Support } from './typeorm/entities/support';
+import { ReturnProduct } from './typeorm/entities/returnProduct';
 
 
 
@@ -35,7 +36,7 @@ import { Support } from './typeorm/entities/support';
       username: 'postgres',
       password: 'root',
       database: 'suppliers',
-      entities: [User, Profile, Post,DeliverymanFeedback, Support, CustomerReview,ProductCategory, Vehicle,Company, Schedule, Order, Mngorder, Supplier, Product, Customer],
+      entities: [User, Profile, Post,DeliverymanFeedback,ReturnProduct, Support, CustomerReview,ProductCategory, Vehicle,Company, Schedule, Order, Mngorder, Supplier, Product, Customer],
       synchronize: true,
     }),
     UsersModule,
