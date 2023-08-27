@@ -77,9 +77,11 @@ export class SupplierController {
     return this.userService.getScheduleById(id);
   }
 
-  @Get('findUserByEmail')
-  getUserByEmail(@Body() body) {
-    return this.userService.findUserByEmail(body);
+  @Get('findUserByEmail/:email')
+  getUserByEmail(
+    @Param('email') email,
+    @Body() body) {
+    return this.userService.findUserByEmail(email);
   }
 
   @Get('/customerReviews')
